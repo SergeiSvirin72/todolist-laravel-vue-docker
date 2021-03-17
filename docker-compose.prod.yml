@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      APP_DEBUG: 'false'
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: todolist
+    volumes:
+      - todolist-postgres-volume:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production-stage
+    ports:
+      - 80:80
+    links:
+      - backend
+
+volumes:
+  todolist-postgres-volume: 
