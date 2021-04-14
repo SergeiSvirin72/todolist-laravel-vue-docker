@@ -1,11 +1,9 @@
-# develop stage
-FROM node:current-alpine3.10 as develop-stage
+# build stage
+FROM node:current-alpine3.10 as build-stage
 WORKDIR /frontend
 COPY package*.json ./
 RUN npm install
 COPY ./ .
-# build stage
-FROM develop-stage as build-stage
 RUN npm run build
 # production stage
 FROM nginx:alpine as production-stage

@@ -29,7 +29,7 @@ services:
       target: production-stage
     ports:
       - 80:80
-    links:
+    depends_on:
       - backend
 
 volumes:

@@ -29,7 +29,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      target: develop-stage
+      target: build-stage
     ports:
       - 8080:8080
     volumes:
